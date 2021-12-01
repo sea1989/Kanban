@@ -1,10 +1,14 @@
 import React from 'react';
+import TaskComponent from '../Task-component';
+import { tasks } from '../data';
+
 import './style.css';
 
 export default class TaskBoardGroup extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this._tasks = tasks;
   }
 
   handleClick() {
@@ -22,81 +26,16 @@ export default class TaskBoardGroup extends React.Component {
           {this.props.title}
         </h3>
         <div class='taskboard__list'>
-          <div class='taskboard__item task task--active'>
-            <div class='task__body'>
-              <p class='task__view'>Название первой задачи</p>
-              <input
-                class='task__input'
-                type='text'
-                value='Название первой задачи'
-              />
-            </div>
-            <button
-              class='task__edit'
-              type='button'
-              aria-label='Изменить'
-            ></button>
-          </div>
-          <div class='taskboard__item task'>
-            <div class='task__body'>
-              <p class='task__view'>Название первой задачи</p>
-              <input
-                class='task__input'
-                type='text'
-                value='Название первой задачи'
-              />
-            </div>
-            <button
-              class='task__edit'
-              type='button'
-              aria-label='Изменить'
-            ></button>
-          </div>
-          <div class='taskboard__item task'>
-            <div class='task__body'>
-              <p class='task__view'>Название первой задачи</p>
-              <input
-                class='task__input'
-                type='text'
-                value='Название первой задачи'
-              />
-            </div>
-            <button
-              class='task__edit'
-              type='button'
-              aria-label='Изменить'
-            ></button>
-          </div>
-          <div class='taskboard__item task'>
-            <div class='task__body'>
-              <p class='task__view'>Название первой задачи</p>
-              <input
-                class='task__input'
-                type='text'
-                value='Название первой задачи'
-              />
-            </div>
-            <button
-              class='task__edit'
-              type='button'
-              aria-label='Изменить'
-            ></button>
-          </div>
-          <div class='taskboard__item task'>
-            <div class='task__body'>
-              <p class='task__view'>Название первой задачи</p>
-              <input
-                class='task__input'
-                type='text'
-                value='Название первой задачи'
-              />
-            </div>
-            <button
-              class='task__edit'
-              type='button'
-              aria-label='Изменить'
-            ></button>
-          </div>
+          {this._tasks
+            .filter((task) => task.status === this.props.classStatus)
+            .map((element) => {
+              return (
+                <TaskComponent
+                  classStatus={element.status}
+                  title={element.title}
+                />
+              );
+            })}
         </div>
       </article>
     );
