@@ -1,14 +1,28 @@
 import React from 'react';
-import Backlog from '../Backlog';
-import Done from '../Done';
-import Processing from '../Processing';
-import Basket from '../Basket';
+import TaskBoardGroup from '../Taskboard-group';
 
 import './style.css';
 
 export default class TaskBoard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.Status = {
+      BACKLOG: `backlog`,
+      PROCESSING: `processing`,
+      DONE: `done`,
+      BASKET: `basket`,
+    };
+
+    this.StatusLabel = {
+      backlog: `Бэклог`,
+      processing: `В процессе`,
+      done: `Готово`,
+      basket: `Корзина`,
+    };
+
+    this._title = this.StatusLabel[this.Status];
+
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -20,10 +34,14 @@ export default class TaskBoard extends React.Component {
     return (
       <section class='taskboard'>
         <h2 class='visually-hidden'>Ваши задачи:</h2>
-        <Backlog />
-        <Processing />
-        <Done />
-        <Basket />
+        {Object.values(this.Status).map((element) => {
+          return (
+            <TaskBoardGroup
+              classStatus={element}
+              title={this.StatusLabel[element]}
+            />
+          );
+        })}
       </section>
     );
   }
