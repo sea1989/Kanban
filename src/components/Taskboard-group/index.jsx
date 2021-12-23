@@ -7,8 +7,25 @@ import './style.css';
 export default class TaskBoardGroup extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      sortTasksObject: { backlog: [], processing: [], done: [], basket: [] },
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this._tasks = tasks;
+  }
+
+  componentDidMount() {
+    this.setState({
+      sortTasksObject: this.props.classStatus.push(
+        this.getByStatus(this.props.classStatus)
+      ),
+    });
+  }
+
+  getByStatus(status) {
+    return this._tasks.filter((task) => task.status === status);
   }
 
   handleClick() {
